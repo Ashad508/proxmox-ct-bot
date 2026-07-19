@@ -1,0 +1,45 @@
+# Axo Proxmox Manager - local-node mode
+# Rotate the Discord token exposed in chat, then paste only the new token here.
+DISCORD_TOKEN=ROTATE_EXPOSED_TOKEN_AND_PASTE_NEW_TOKEN
+PREFIX=!
+MAIN_ADMIN_ID=1449782213947424861
+ADMIN_IDS=
+
+# The bot must run directly on this Proxmox VE node as root.
+PROXMOX_NODE=sum-085
+PROXMOX_WEB_URL=https://usa-1.axonetwork.fun/
+PROXMOX_STORAGE=local-lvm
+
+# Replace the volume IDs below with the exact output from: pveam list local
+CT_TEMPLATES_JSON={"debian12":"local:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst","ubuntu2404":"local:vztmpl/ubuntu-24.04-standard_24.04-2_amd64.tar.zst"}
+DEFAULT_TEMPLATE=debian12
+
+# Dedicated private CT network. Keep this range reserved for Axo static leases.
+CT_BRIDGE=vmbr1
+CT_SUBNET=192.168.100.0/24
+CT_GATEWAY=192.168.100.1
+CT_FIRST_IP=192.168.100.2
+CT_LAST_IP=192.168.100.254
+CT_NAMESERVER=1.1.1.1
+
+PROXMOX_VMID_START=1000
+PROXMOX_VMID_END=999999
+DATABASE_PATH=data/axo-manager.db
+
+# Safe CT defaults. SSH installation supports Debian/Ubuntu templates.
+CT_UNPRIVILEGED=true
+CT_FEATURES=nesting=1,keyctl=1
+CT_ONBOOT=false
+CONFIGURE_ROOT_SSH=true
+
+# Each owner receives axo-<DiscordID>@pve, scoped only to /vms/<VMID>.
+PVE_REALM=pve
+PVE_USER_PREFIX=axo
+PVE_CT_USER_ROLE=AxoCTUser
+PVE_CT_USER_PRIVILEGES=VM.Audit VM.Console VM.PowerMgmt
+PASSWORD_LENGTH=24
+
+MAX_RAM_GB=64
+MAX_CORES=32
+MAX_DISK_GB=1000
+LOG_LEVEL=INFO

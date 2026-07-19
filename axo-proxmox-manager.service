@@ -1,0 +1,22 @@
+[Unit]
+Description=Axo Proxmox Manager Discord Bot (local Proxmox mode)
+After=network-online.target pve-cluster.service
+Wants=network-online.target
+Requires=pve-cluster.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/axo-proxmox-manager
+ExecStart=/opt/axo-proxmox-manager/.venv/bin/python /opt/axo-proxmox-manager/bot.py
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=true
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
